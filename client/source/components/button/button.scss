@@ -1,0 +1,30 @@
+@import "../../styles/variables";
+
+.button {
+  box-sizing: border-box;
+  border: hidden;
+  border-top: 1px solid rgba($color-white, .4);
+  border-bottom: 1px solid rgba($color-black, .4);
+  border-radius: 4px;
+  padding: 4px;
+
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: 500;
+  color: $color-white;
+
+  background-color: $color-blue-medium;
+  outline: none;
+  cursor: pointer;
+
+  &:hover,
+  &:focus { background-color: $color-blue-light; }
+
+  &:active { background-color: $color-blue-dark; }
+
+  &:disabled {
+    background-color: $color-blue-medium;
+    opacity: .4;
+    cursor: auto;
+  }
+}

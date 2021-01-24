@@ -1,0 +1,44 @@
+@import "../../styles/variables";
+
+@import "../../styles/mixins";
+
+.event-list {
+  box-sizing: border-box;
+  display: grid;
+  row-gap: 8px;
+
+  @include bordered-box();
+
+  &__heading {
+    margin-top: 0;
+    margin-bottom: 0;
+
+    font-size: inherit;
+  }
+
+  &__create-button {
+    justify-self: start;
+  }
+
+  &__list {
+    display: grid;
+    row-gap: 8px;
+
+    margin-top: 0;
+    margin-bottom: 0;
+    padding-left: 0;
+
+    list-style: none;
+
+    @media (min-width: $breakpoint-tablet) {
+      grid-template-columns: repeat(2, 1fr);
+      column-gap: 8px;
+    }
+
+    @media (min-width: $breakpoint-laptop) { grid-template-columns: repeat(3, 1fr); }
+  }
+
+  &__item {
+    display: grid;
+  }
+}

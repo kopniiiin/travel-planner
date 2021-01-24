@@ -1,0 +1,16 @@
+@import "../../styles/mixins";
+
+.profile {
+  box-sizing: border-box;
+  display: grid;
+  row-gap: 8px;
+
+  @include bordered-box();
+
+  &__heading {
+    margin-top: 0;
+    margin-bottom: 0;
+
+    font-size: inherit;
+  }
+}

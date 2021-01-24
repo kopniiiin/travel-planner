@@ -1,0 +1,134 @@
+version: 2
+
+variables:
+
+  url: http://localhost:5000/api
+
+  eventTypes:
+    type: array
+    items:
+      type: object
+      properties:
+        name:
+          type: string
+          enum: [car, plane, hotel, food]
+        options:
+          type: array
+          items:
+            type: string
+
+  events:
+    type: array
+    items:
+      type: object
+      properties:
+        _id:
+          type: string
+        type:
+          type: string
+          enum: [car, plane, hotel, food]
+        city:
+          type: string
+          enum: [Moscow, Prague, Berlin, Oslo]
+        date:
+          type: string
+        options:
+          type: array
+          items:
+            type: string
+
+requests:
+
+  getOptions:
+    request:
+      url: <$ url $>/options
+      method: GET
+    validate:
+    - jsonpath: status
+      regex: 2\d+
+    - jsonpath: content
+      jsonschema: <$ eventTypes | dump | safe $>
+
+
+  login:
+    request:
+      url: <$ url $>/auth/login
+      method: POST
+      postData:
+        mimeType: application/json
+        text:
+          email: la@la.com
+          password: lala
+    validate:
+    - jsonpath: status
+      regex: 2\d+
+    - jsonpath: content.token
+      type: [ string ]
+
+  getEvents:
+    request:
+      url: <$ url $>/events
+      method: GET
+      headers:
+      - name: Authorization
+        value: Bearer <$ login.content.token $>
+    validate:
+    - jsonpath: status
+      regex: 2\d+
+    - jsonpath: content
+      jsonschema: <$ events | dump | safe $>
+
+  createEvent:
+    request:
+      url: <$ url $>/events
+      method: POST
+      headers:
+      - name: Authorization
+        value: Bearer <$ login.content.token $>
+      postData:
+        mimeType: application/json
+        text:
+          type: car
+          city: Moscow
+          date: 2020-12-16
+          options: [business class]
+    validate:
+    - jsonpath: status
+      regex: 2\d+
+    - jsonpath: content
+      jsonschema: <$ events | dump | safe $>
+
+  editEvent:
+    request:
+      url: <$ url $>/events/<$ createEvent.content[0]._id $>
+      method: PUT
+      headers:
+      - name: Authorization
+        value: Bearer <$ login.content.token $>
+      postData:
+        mimeType: application/json
+        text:
+          type: plane
+          city: Berlin
+          date: 2020-12-18
+          options: [luggage]
+    validate:
+    - jsonpath: status
+      regex: 2\d+
+    - jsonpath: content
+      jsonschema: <$ events | dump | safe $>
+
+  deleteEvent:
+    request:
+      url: <$ url $>/events/<$ createEvent.content[0]._id $>
+      method: DELETE
+      headers:
+      - name: Authorization
+        value: Bearer <$ login.content.token $>
+    validate:
+    - jsonpath: status
+      regex: 2\d+
+    - jsonpath: content
+      jsonschema: <$ events | dump | safe $>
+
+

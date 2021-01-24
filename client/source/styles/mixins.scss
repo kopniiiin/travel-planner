@@ -1,0 +1,7 @@
+@import "./variables";
+
+@mixin bordered-box {
+  border: 1px solid $color-grey;
+  border-radius: 4px;
+  padding: 8px;
+}

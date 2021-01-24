@@ -1,0 +1,34 @@
+@import "../../styles/variables";
+
+.text-input {
+  box-sizing: border-box;
+  display: grid;
+  row-gap: 4px;
+
+  &__label {
+    justify-self: start;
+
+    cursor: pointer;
+  }
+
+  &__input {
+    border: 1px solid $color-grey;
+    border-radius: 4px;
+    padding: 4px;
+
+    font-family: inherit;
+    font-size: inherit;
+    color: inherit;
+
+    outline: none;
+
+    &:hover,
+    &:focus { border-color: $color-blue-light; }
+
+    &:disabled {
+      border-color: $color-grey;
+
+      opacity: .4;
+    }
+  }
+}

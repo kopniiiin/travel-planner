@@ -1,0 +1,15 @@
+@import "../../styles/variables";
+
+.error-message {
+  position: fixed;
+  bottom: 40px;
+  left: 50%;
+
+  border-radius: 4px;
+  padding: 4px;
+
+  color: $color-white;
+
+  background-color: $color-red;
+  transform: translateX(-50%);
+}

@@ -1,0 +1,21 @@
+@import "../../styles/mixins";
+
+.event-card {
+  box-sizing: border-box;
+  display: grid;
+  row-gap: 4px;
+
+  @include bordered-box();
+
+  &__heading {
+    margin-top: 0;
+    margin-bottom: 0;
+
+    font-size: inherit;
+  }
+
+  &__edit-button {
+    justify-self: start;
+    align-self: end;
+  }
+}
